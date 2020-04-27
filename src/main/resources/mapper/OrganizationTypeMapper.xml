@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gcu.societyservice.dao.OrganizationTypeMapper">
+	<select id="listOrgType" resultType="com.gcu.societyservice.entity.OrganizationType">
+		select * from organization_type
+		<trim prefix="where" suffixOverrides="and">
+			<if test="orgTypeId != null">
+				org_type_id = #{orgTypeId} and 
+			</if>
+			<if test="orgTypeName != null">
+				org_type_name = #{orgTypeName} and
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="addOrgType">
+		insert into organization_type(org_type_name) values(#{orgTypeName})
+	</insert>
+	
+	<update id="updateOrgType">
+		update organization_type
+		<trim prefix="set">
+			<if test="orgTypeName != null">
+				org_type_name = #{orgTypeName}
+			</if>
+		</trim>
+		where org_type_id = #{orgTypeId}
+	</update>
+	
+	<delete id="deleteOrgType">
+		delete from organization_type where org_type_id = #{orgTypeId}
+	</delete>
+	
+</mapper>

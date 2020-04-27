@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gcu.societyservice.dao.ActivityMapper">
+	<select id="listActivity" resultType="com.gcu.societyservice.entity.Activity">
+		select * from activity
+		<trim prefix="where" suffixOverrides="and">
+			<if test="actId != null">
+				act_id = #{actId} and
+			</if>
+			<if test="title != null">
+				title = #{title} and 
+			</if>
+			<if test="time != null">
+				act_time = #{time} and
+			</if>
+			<if test="place != null">
+				place = #{place} and
+			</if>
+			<if test="actType != null">
+				act_type = #{actType} and
+			</if>
+			<if test="actHost != null">
+				act_host = #{actHost} and
+			</if>
+			<if test="followNumber != null">
+				n_o_people = #{followNumber} and
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="addActivity">
+		insert into activity (title,act_time,place,act_type,act_host,principal,phone,act_intro,act_desc,act_img,follow_number,date) 
+			values(#{title},#{time},#{place},#{actType},#{actHost},#{principal},#{phone},#{actIntro},#{actDesc},
+			#{actImg},#{followNumber},#{date})
+	</insert>
+	
+	<update id="updateActivity">
+		update activity
+		<trim prefix="set" suffixOverrides="," >
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="time != null">
+				act_time = #{time},
+			</if>
+			<if test="place != null">
+				place = #{place},
+			</if>
+			<if test="actType != null">
+				act_type = #{actType},
+			</if>
+			<if test="actHost != null">
+				act_host = #{actHost},
+			</if>
+			<if test="principal != null">
+				principal = #{principal},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="actIntro != null">
+				act_intro = #{actIntro},
+			</if>
+			<if test="actDesc != null">
+				act_desc = #{actDesc},
+			</if>
+			<if test="actImg != null">
+				act_img = #{actImg},
+			</if>
+			<if test="followNumber != null">
+				follow_number = #{followNumber},
+			</if>
+			<if test="date != null">
+				date = #{date}
+			</if>
+		</trim>
+		where act_id = #{actId}
+	</update>
+	
+	<delete id="deleteActivity">
+		delete from activity where act_id = #{actId}
+	</delete>
+	
+</mapper>

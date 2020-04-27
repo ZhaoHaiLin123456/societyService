@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gcu.societyservice.dao.FolllowMapper">
+	<select id="listFollowActivity" resultType="com.gcu.societyservice.entity.Activity">
+		select a.act_id, title, time, place, act_type, `host`, principal, phone, 
+		intro, `act_desc`,act_img,follow_number,date from follow f, activity a
+		where f.user_id = #{userId} and f.act_id = a.act_id 
+	</select>
+	
+	<select id="listFollowOrganization" resultType="com.gcu.societyservice.entity.Organization">
+		select o.org_id, org_name, org_type,org_desc,org_img from follow f, organization o
+		where  f.user_id = #{userId} and f.org_id = o.org_id
+	</select>
+	
+	<insert id="addFollow">
+		insert into follow (user_id, org_id, act_id) values(#{userId}, #{orgId}, #{actId})
+	</insert>
+	
+	<delete id="deleteFollow">
+		delete from follow where user_id = #{userId}
+		<if test="orgId != null">
+			and org_id = #{orgId}
+		</if>
+		<if test="actId != null">
+			and act_id = #{actId}
+		</if>
+	</delete>
+</mapper> 
